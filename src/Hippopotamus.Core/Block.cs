@@ -7,23 +7,26 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Hippopotamus.Core
 {
-    public abstract class Block : Element
+    public abstract class Block : Element, IBlock
     {
         public static event WebElementFindingEventHandler WebElementFinding;
 
         public static event WebElementFoundEventHandler WebElementFound;
 
-        public static readonly TimeSpan DefaultTimeout = TimeSpan.FromTicks(3000);
+        private protected Block(By specification)
+            : base(specification)
+        {
+        }
 
-        protected Block(Block parent, By by, TimeSpan? timeout = null)
+        protected Block(IBlock parent, By by)
             : base(parent, by)
         {
-            WaitTimeout = timeout ?? parent?.WaitTimeout ?? DefaultTimeout;
+            this.WaitTimeout = parent.WaitTimeout;
         }
 
         public TimeSpan WaitTimeout { get; set; }
 
-        public virtual IWebElement FindElement(FindOptions findOptions)
+        public virtual IWebElement FindElement(IFindOptions findOptions)
         {
             WebElementFinding?.Invoke(this, new WebElementFindingEventArgs { FindOptions = findOptions });
 
@@ -32,7 +35,7 @@ namespace Hippopotamus.Core
             return element;
         }
 
-        private Func<IWebDriver, IWebElement> FindElementWithCondition(FindOptions findOptions)
+        private Func<IWebDriver, IWebElement> FindElementWithCondition(IFindOptions findOptions)
         {
             return (driver) =>
             {
@@ -69,7 +72,7 @@ namespace Hippopotamus.Core
             }
         }
 
-        public virtual IWebElement FindElementImmediately(FindOptions findOptions)
+        public virtual IWebElement FindElementImmediately(IFindOptions findOptions)
         {
             try
             {
@@ -86,7 +89,7 @@ namespace Hippopotamus.Core
             }
         }
 
-        public virtual IEnumerable<OrderedWebElement> FindElements(FindOptions findOptions)
+        public virtual IEnumerable<OrderedWebElement> FindElements(IFindOptions findOptions)
         {
             var elements = Wait.Until(driver =>
             {

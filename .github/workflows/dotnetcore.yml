@@ -21,3 +21,5 @@ jobs:
       run: dotnet restore ./src/Hippopotamus.sln
     - name: Build
       run: dotnet build ./src/Hippopotamus.sln --configuration Release --no-restore
+    - name: Test
+      run: dotnet test ./src/Hippopotamus.sln --no-build --configuration Release --verbosity normal

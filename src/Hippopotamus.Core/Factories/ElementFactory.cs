@@ -6,17 +6,17 @@ namespace Hippopotamus.Core.Factories
     public static class ElementFactory
     {
         public static TElement Create<TElement>(
-            Block parent,
-            By by)
-            where TElement : Element
+            IBlock parent,
+            By specification)
+            where TElement : IElement
         {
-            return (TElement)Create(typeof(TElement), parent, by);
+            return (TElement)Create(typeof(TElement), parent, specification);
         }
 
         public static object Create(
-            Type elementToCreateType, 
-            Block parent, 
-            By by)
+            Type elementToCreateType,
+            IBlock parent,
+            By specification)
         {
             if (elementToCreateType == null)
             {
@@ -28,24 +28,24 @@ namespace Hippopotamus.Core.Factories
                 throw new ArgumentNullException(nameof(parent));
             }
 
-            if (by == null)
+            if (specification == null)
             {
-                throw new ArgumentNullException(nameof(by));
+                throw new ArgumentNullException(nameof(specification));
             }
 
-            if (!typeof(Element).IsAssignableFrom(elementToCreateType))
+            if (!typeof(IElement).IsAssignableFrom(elementToCreateType))
             {
-                throw new ArgumentException($"Given type '{elementToCreateType.FullName}' is not assignable to '{typeof(Element).FullName}'.", nameof(elementToCreateType));
+                throw new ArgumentException($"Given type '{elementToCreateType.FullName}' is not assignable to '{typeof(IElement).FullName}'.", nameof(elementToCreateType));
             }
 
-            var ctor = elementToCreateType.GetConstructor(new[] { typeof(Block), typeof(By) });
+            var ctor = elementToCreateType.GetConstructor(new[] { typeof(IBlock), typeof(By) });
 
             if (ctor == null)
             {
-                throw new ArgumentException($"Given type '{elementToCreateType.FullName}' does not have a constructor that takes two parameters of types '{typeof(Block).FullName}' and '{typeof(By).FullName}'.");
+                throw new ArgumentException($"Given type '{elementToCreateType.FullName}' does not have a constructor that takes two parameters of types '{typeof(IBlock).FullName}' and '{typeof(By).FullName}'.", nameof(elementToCreateType));
             }
 
-            var createdElement = (Element)ctor.Invoke(new object[] { parent, by });
+            var createdElement = (IElement)ctor.Invoke(new object[] { parent, specification });
 
             createdElement.AfterCreated();
 

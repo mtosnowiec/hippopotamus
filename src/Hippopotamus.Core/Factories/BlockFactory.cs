@@ -6,24 +6,24 @@ namespace Hippopotamus.Core.Factories
     public static class BlockFactory
     {
         public static TBlock Create<TBlock>(
-            Block parent, 
+            IBlock parent,
             By by)
-            where TBlock : Block
+            where TBlock : IBlock
         {
             return (TBlock)Create(typeof(TBlock), parent, by);
         }
 
         public static object Create(
-            Type blockToCreateType, 
-            Block parent,
+            Type blockToCreateType,
+            IBlock parent,
             By by)
         {
-            if (!typeof(Block).IsAssignableFrom(blockToCreateType))
+            if (!typeof(IBlock).IsAssignableFrom(blockToCreateType))
             {
-                throw new ArgumentException($"Given type '{blockToCreateType.FullName}' is not assignable to '{typeof(Block).FullName}'.", nameof(blockToCreateType));
+                throw new ArgumentException($"Given type '{blockToCreateType.FullName}' is not assignable to '{typeof(IBlock).FullName}'.", nameof(blockToCreateType));
             }
 
-            return (Block)ElementFactory.Create(blockToCreateType, parent, by);
+            return (IBlock)ElementFactory.Create(blockToCreateType, parent, by);
         }
     }
 }

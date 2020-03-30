@@ -3,13 +3,27 @@ using OpenQA.Selenium;
 
 namespace Hippopotamus.Core
 {
-    public abstract class Element
+    public abstract class Element : IElement
     {
-        protected Element(Block parent, By by)
+        private protected Element(By specification)
         {
-            Parent = parent;
-            Specification = by;
-            AccessibilityLevel = AccessibilityLevel.Visible;
+            if (specification == null)
+            {
+                throw new ArgumentNullException(nameof(specification));
+            }
+
+            this.Specification = specification;
+        }
+
+        protected Element(IBlock parent, By specification)
+            : this(specification)
+        {
+            if (parent == null)
+            {
+                throw new ArgumentNullException(nameof(parent));
+            }
+
+            this.Parent = parent;
         }
 
         public AccessibilityLevel AccessibilityLevel { get; set; }
@@ -19,18 +33,18 @@ namespace Hippopotamus.Core
             return Parent.FindElementImmediately(GetFindOptions()) != null;
         }
 
-        public Page Page
+        public IPage Page
         {
             get
             {
-                Element currentElement = this;
+                IElement currentElement = this;
 
                 while (currentElement.Parent != null)
                 {
                     currentElement = currentElement.Parent;
                 }
 
-                var page = currentElement as Page;
+                var page = currentElement as IPage;
 
                 if (page == null)
                 {
@@ -41,9 +55,9 @@ namespace Hippopotamus.Core
             }
         }
 
-        public Block Parent { get; }
+        public IBlock Parent { get; }
 
-        public virtual Session Session => Page.Session;
+        public virtual ISession Session => Page.Session;
 
         public virtual IWebElement Tag => Parent.FindElement(GetFindOptions());
 
@@ -51,7 +65,7 @@ namespace Hippopotamus.Core
 
         protected By Specification { get; }
 
-        private FindOptions GetFindOptions()
+        private IFindOptions GetFindOptions()
         {
             return new FindOptions
             {

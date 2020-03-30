@@ -20,6 +20,6 @@
         /// <summary>
         /// Element is visible and interactable (without "disabled" attribute).
         /// </summary>
-        Clickable = 2
+        Clickable = 2,
     }
 }

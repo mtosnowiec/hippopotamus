@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 
 namespace Hippopotamus.Core
 {
-    public class Session : IDisposable
+    public class Session : ISession, IDisposable
     {
         public Session(IWebDriver webDriver)
         {
@@ -12,7 +12,7 @@ namespace Hippopotamus.Core
         }
 
         public virtual TPage NavigateTo<TPage>(string url)
-            where TPage : Page
+            where TPage : IPage
         {
             Driver.Navigate().GoToUrl(url);
 
@@ -20,7 +20,7 @@ namespace Hippopotamus.Core
         }
 
         public virtual TPage CurrentPageAs<TPage>()
-            where TPage : Page
+            where TPage : IPage
         {
             return PageFactory.Create<TPage>(this);
         }
