@@ -2,6 +2,6 @@
 {
     public class WebElementFindingEventArgs
     {
-        public FindOptions FindOptions { get; set; }
+        public IFindOptions FindOptions { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace Hippopotamus.Core
     /// <summary>
     /// Options used to find child element in parent.
     /// </summary>
-    public class FindOptions
+    public class FindOptions : IFindOptions
     {
         /// <summary>
         /// Specifies condition when a child element of page is treated as found.

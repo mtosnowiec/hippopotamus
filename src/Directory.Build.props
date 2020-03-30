@@ -1,0 +1,19 @@
+<Project>
+
+  <!-- Packaging properties -->
+  <PropertyGroup>
+    <Title>$(MSBuildProjectName)</Title>
+    <Authors>Mateusz Tosnowiec</Authors>
+    <Owners>$(Authors)</Owners>
+    <Copyright>Copyright © $(Authors) $([System.DateTime]::Now.Year)</Copyright>
+    <Product>HipPoPotamus</Product>
+    <RepositoryUrl>git://github.com/mtosnowiec/hippopotamus</RepositoryUrl>
+    <ProjectUrl>https://github.com/mtosnowiec/hippopotamus</ProjectUrl>
+    <LicenseUrl>https://github.com/mtosnowiec/hippopotamus/blob/master/LICENSE</LicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Page Object Pattern, Selenium</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <RequireLicenseAcceptance>false</RequireLicenseAcceptance>
+  </PropertyGroup>
+
+</Project>

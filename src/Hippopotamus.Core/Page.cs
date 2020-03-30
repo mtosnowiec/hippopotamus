@@ -3,24 +3,34 @@ using OpenQA.Selenium;
 
 namespace Hippopotamus.Core
 {
-    public abstract class Page : Block
+    public abstract class Page : Block, IPage
     {
-        protected Page(Session session, TimeSpan timeout) : this(session, By.TagName("body"), timeout)
+        protected Page(
+            ISession session,
+            TimeSpan timeout)
+            : this(
+                  session,
+                  By.TagName("body"),
+                  timeout)
         {
         }
 
-        internal Page(Session session, By by, TimeSpan timeout)
-            : base(null, by, timeout)
+        private Page(
+            ISession session,
+            By by,
+            TimeSpan timeout)
+            : base(by)
         {
-            Session = session;
+            this.Session = session;
+            this.WaitTimeout = timeout;
         }
 
         public override IWebElement Tag =>
             Session.Driver
                 .SwitchTo()
                 .DefaultContent()
-                .FindElement(Specification);
+                .FindElement(this.Specification);
 
-        public override Session Session { get; }
+        public override ISession Session { get; }
     }
 }
