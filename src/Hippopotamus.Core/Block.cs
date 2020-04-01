@@ -21,10 +21,10 @@ namespace Hippopotamus.Core
         protected Block(IBlock parent, By by)
             : base(parent, by)
         {
-            this.WaitTimeout = parent.WaitTimeout;
+            this.FindTimeout = parent.FindTimeout;
         }
 
-        public TimeSpan WaitTimeout { get; set; }
+        public TimeSpan FindTimeout { get; set; }
 
         public virtual IWebElement FindElement(IFindOptions findOptions)
         {
@@ -120,6 +120,6 @@ namespace Hippopotamus.Core
             return elements;
         }
 
-        protected WebDriverWait Wait => new WebDriverWait(Session.Driver, WaitTimeout);
+        protected WebDriverWait Wait => new WebDriverWait(Session.Driver, FindTimeout);
     }
 }

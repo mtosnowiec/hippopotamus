@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 
 namespace Hippopotamus.Core
 {
-    public class Session : ISession, IDisposable
+    public class Session : ISession
     {
         public Session(IWebDriver webDriver)
         {

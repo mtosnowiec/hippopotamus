@@ -5,24 +5,11 @@ namespace Hippopotamus.Core
 {
     public abstract class Page : Block, IPage
     {
-        protected Page(
-            ISession session,
-            TimeSpan timeout)
-            : this(
-                  session,
-                  By.TagName("body"),
-                  timeout)
-        {
-        }
-
-        private Page(
-            ISession session,
-            By by,
-            TimeSpan timeout)
-            : base(by)
+        protected Page(ISession session)
+            : base(By.TagName("body"))
         {
             this.Session = session;
-            this.WaitTimeout = timeout;
+            this.FindTimeout = TimeSpan.Zero;
         }
 
         public override IWebElement Tag =>
