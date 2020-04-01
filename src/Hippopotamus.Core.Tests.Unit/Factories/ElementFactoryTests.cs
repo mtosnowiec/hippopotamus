@@ -4,7 +4,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
 
-namespace Hippopotamus.Core.UnitTests.Factories
+namespace Hippopotamus.Core.Tests.Unit.Factories
 {
     public class ElementFactoryTests
     {
@@ -190,7 +190,7 @@ namespace Hippopotamus.Core.UnitTests.Factories
 
             public override void AfterCreated()
             {
-                this.AfterCreatedInvoked = true;
+                AfterCreatedInvoked = true;
             }
         }
 
