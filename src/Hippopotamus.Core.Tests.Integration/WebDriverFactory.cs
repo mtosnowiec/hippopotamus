@@ -9,7 +9,7 @@ namespace Hippopotamus.Core.Tests.Integration
         {
             var options = new ChromeOptions();
             options.AddArgument("--no-sandbox");
-            // options.AddArgument("--headless");
+            options.AddArgument("--headless");
             options.AddArgument("--disable-dev-shm-usage");
             options.AddArgument("--ignore-certificate-errors");
 

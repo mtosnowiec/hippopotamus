@@ -10,6 +10,19 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    services:
+      hub:
+        image: selenium/hub:3.141.59-20200409
+        ports:
+          - "4444:4444"
+      chrome:
+        image: selenium/node-chrome:3.141.59-20200409
+        volumes:
+          - /dev/shm:/dev/shm
+        env:
+          HUB_HOST: hub
+          HUB_PORT: 4444
 
     steps:
     - uses: actions/checkout@v2
