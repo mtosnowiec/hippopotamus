@@ -1,8 +1,9 @@
 ﻿using OpenQA.Selenium;
+using System;
 
 namespace Hippopotamus.Core
 {
-    public interface ISession
+    public interface ISession : IDisposable
     {
         IWebDriver Driver { get; }
 

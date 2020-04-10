@@ -12,6 +12,6 @@ namespace Hippopotamus.Core
 
         IEnumerable<OrderedWebElement> FindElements(IFindOptions findOptions);
 
-        TimeSpan WaitTimeout { get; set; }
+        TimeSpan FindTimeout { get; set; }
     }
 }
